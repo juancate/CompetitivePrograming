@@ -1,0 +1,23 @@
+<tests>
+<input><![CDATA[
+3
+1 1 0
+1 1 1
+1 0 0
+
+]]></input>
+<answer><![CDATA[
+2
+
+]]></answer>
+<input><![CDATA[
+2
+1 0 0
+0 1 1
+
+]]></input>
+<answer><![CDATA[
+1
+
+]]></answer>
+</tests>

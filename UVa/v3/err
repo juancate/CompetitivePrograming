@@ -1,0 +1,56 @@
+current.room = 0
+current.mask = 1
+move----
+------
+current.room = 0
+current.mask = 3
+move----
+------
+current.room = 0
+current.mask = 5
+move----
+------
+current.room = 0
+current.mask = 7
+move----
+------
+current.room = 1
+current.mask = 3
+move----
+------
+current.room = 2
+current.mask = 5
+move----
+------
+current.room = 1
+current.mask = 7
+move----
+------
+current.room = 2
+current.mask = 7
+move----
+------
+current.room = 1
+current.mask = 2
+move----
+------
+current.room = 1
+current.mask = 6
+move----
+------
+current.room = 2
+current.mask = 6
+move----
+------
+current.room = 0
+current.mask = 1
+move----
+------
+current.room = 0
+current.mask = 3
+move----
+------
+current.room = 1
+current.mask = 3
+move----
+------

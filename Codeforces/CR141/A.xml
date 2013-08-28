@@ -1,0 +1,18 @@
+<tests>
+<input><![CDATA[
+1 7 3 3
+
+]]></input>
+<answer><![CDATA[
+1
+
+]]></answer>
+<input><![CDATA[
+7 7 7 7
+
+]]></input>
+<answer><![CDATA[
+3
+
+]]></answer>
+</tests>

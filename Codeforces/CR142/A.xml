@@ -1,0 +1,21 @@
+<tests>
+<input><![CDATA[
+2 2
+1 99
+100 0
+
+]]></input>
+<answer><![CDATA[
+YES
+
+]]></answer>
+<input><![CDATA[
+10 1
+100 100
+
+]]></input>
+<answer><![CDATA[
+NO
+
+]]></answer>
+</tests>

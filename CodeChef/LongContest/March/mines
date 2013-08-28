@@ -1,0 +1,5 @@
+- array used
+- survey cell not used
+- have a queue with this cells
+- euristic to check mines
+- stop when m = 0

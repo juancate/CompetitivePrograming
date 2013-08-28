@@ -1,0 +1,13 @@
+{
+	"name" : "CodeChef.com - strike throught",
+	"version" : "1.1",
+	"manifest_version" : 2,
+	"description" : "Extension strikes throught solved problem in long contests, short contests and practice (decription with screenshots on http://codeforces.com/blog/entry/4599)",
+	"content_scripts": [
+		{
+		  "matches": ["http://www.codechef.com/*"],
+		  "css": ["codechef-strike.css"],
+		  "js": ["jquery-1.7.2.min.js", "codechef-strike.js"]
+		}
+    ]
+}

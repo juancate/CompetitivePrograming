@@ -1,0 +1,13 @@
+<tests>
+<input><![CDATA[
+3
+4 5 6
+
+]]></input>
+<answer><![CDATA[
+YES
+NO
+NO
+
+]]></answer>
+</tests>

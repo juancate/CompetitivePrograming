@@ -1,0 +1,85 @@
+Primero el de how many 0's.
+
+La idea es hacer un dp cuyo estado sea, el índice (del dígito) en el que voy, y saber si ya puse un número diferente de 0 en algún índice anterior.
+
+supongamos que lo vamos a hacer hasta 15, las combinaciones generadas por los estados posibles serían
+
+indice 0, 1
+          0  0
+          0  1
+          0  2      
+          ....
+          1  0
+          1  1
+          1  2
+          1  3
+          1  4
+          1  5   
+          
+
+el índice 0, va hasta 1, digamos que ese es el "tope", y el indice 1 va de 0 a 9, cuando el índice 0 no está en el tope. y de 0 a 5 (que sería su propio tope) cuando el dígito 0 está en tope.
+
+si es clara esa idea ?
+sí, que el tope es 9 cuando el anterior no es leading, y va hasta el dígito cuando el anterior es el tope, no?  Bueno, va hasta 9 siempre, excepto cuando es el tope el anterior
+exacto, eso es como lo primordial en esos dp.
+
+supongamos que num es un string.
+
+int dp(int index, bool tope, bool leading){
+    if(index == num.size()) return 0;
+    int limite = tope ? num[index] - '0' : 9;
+    int ans = 0;
+    for(int i  = 0 ; i < limite ; ++i)
+        // como es cpp retorna un int :P
+        ans +=  (i == 0 and !leading) + dp(index + 1 , i == limite and tope, i == 0  and leading);
+    
+    return ans;
+}
+no entiendo esta parte: i == limite and tope
+qué pasa si i == limite pero tope es false?, le dice al siguiente que tampoco hay tope
+
+umm creo que ya, es como decir que el tope se va construyendo... no? exacto.
+
+por ejemplo si el número es 153
+cuando el indice 0 está en 0, tanto el índice 1 como el 2 se pueden mover libremente entre 0 y 9
+
+sí el índice 0 es 1, entonces el índice 1 sólo puede moverse entre 0 y 5, pero el índice 2, puede moverse libremente, siempre y cuando el anterior no esté en el tope
+
+sí, ya está claro con el ejemplo.
+
+Pero en ese problema el estado no tenía 4 parametros?
+
+se puede hacer con 3 o con 4, la otra idea es básicamente lo mismo, sólo que se lleva la respuesta en cada "rama" del dp, es algo como esto:
+
+int dp(int index, bool tope, bool leading, int howmany){
+    if(index == num.size()) leading ? 0 : howmany ;
+    int limite = tope ? num[index] - '0' : 9;
+    int ans = 0;
+    for(int i  = 0 ; i < limite ; ++i)
+        // como es cpp retorna un int :P
+        ans += dp(index + 1 , i == limite and tope, i == 0  and leading, howmany + (i == 0 and !leading));
+    
+    return ans;
+}
+
+Pero en teoría es lo mismo... Diego una vez me dijo que poniendo la respuesta como parámetro hacía mucho más fácil los cálculos en algunos problemas
+
+por qué?, heheh la verdad aún no sé bien, a mí me parecen muy similares las 2.
+bueno, puede ser bueno en algunos casos cuando la respuesta es pequeña, porque no hace las sumas cuando se devuelve en la recursión
+pero pille que en este caso la "suma grande" sí la hace la recursividad, en la parte de ans += dp.
+
+y el parámetro howmany nunca pasa de 20
+
+sí, debe ser para cálculos más complejos, me imagino.
+
+Bueno, con esta explicación veo que el problema de Digit sum es muy parecido, por no decir casi lo mismo jajaja
+hahah sí, es muy similar, sólo cambia un poco la parte de la suma, pero igual sale fácil.
+Será que este año tiran uno de esos ? XD
+
+jajaja quién sabe... de pronto en el regional, en el de 2010 hay uno así también.
+
+umm pero eso no es peor? cuando howmany es muy grande?
+
+Pero pille que howmany como tal sólo va a ser máximo unos... 19- 20, porque es para una sola rama del dp.
+
+

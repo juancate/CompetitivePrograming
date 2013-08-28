@@ -1,0 +1,23 @@
+<tests>
+<input><![CDATA[
+3 6
+101010
+000100
+100000
+
+]]></input>
+<answer><![CDATA[
+3
+
+]]></answer>
+<input><![CDATA[
+2 3
+111
+000
+
+]]></input>
+<answer><![CDATA[
+-1
+
+]]></answer>
+</tests>

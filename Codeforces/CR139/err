@@ -1,0 +1,50 @@
+ c = 0 color = 1 sum = 2
+ c = 1 color = 0 sum = 5
+ c = 2 color = 1 sum = 2
+ c = 3 color = 0 sum = 2
+ c = 4 color = 1 sum = 4
+current = 4
+ans = 4
+current = 6
+ans = 6
+current = 2
+ans = 2
+current = 4
+ans = 4
+ c = 4 color = 0 sum = 2
+current = 2
+ans = 2
+current = 4
+ans = 4
+current = 9
+ans = 9
+ c = 3 color = 1 sum = 4
+ c = 4 color = 0 sum = 2
+current = 2
+ans = 2
+current = 6
+ans = 6
+current = 4
+ans = 4
+current = 9
+ans = 9
+current = 11
+ans = 11
+ c = 2 color = 0 sum = 4
+ c = 3 color = 1 sum = 4
+ c = 4 color = 0 sum = 2
+current = 2
+ans = 2
+current = 6
+ans = 6
+current = 4
+ans = 4
+current = 8
+ans = 8
+ c = 4 color = 1 sum = 4
+current = 4
+ans = 4
+current = 8
+ans = 8
+current = 10
+ans = 10
