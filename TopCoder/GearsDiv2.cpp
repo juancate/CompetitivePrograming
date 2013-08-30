@@ -45,23 +45,26 @@ class GearsDiv2 {
     int getmin(string Directions);
 };
 
-int n;
+int solve(string s) {
+  int n = s.size();
+  if (n <= 1)
+    return 0;
+
+  if (s[0] == s[1])
+    return 1 + solve(n > 2? s.substr(2) : "");
+  else
+    return solve(s.substr(1));
+}
 
 int GearsDiv2::getmin(string s) {
-  n = s.size();
+  int ans = INF;
+  int n = s.size();
 
-  int ans = 0;
+  if (s[0] != s[n-1])
+    ans = solve(s);
 
-  for (int i = 0; i < n; i++) {
-    if (s[i] == s[(i-1+n) % n] && s[i] == s[(i+1) % n])
-      s[i] = ' ', ans++;
-  }
-
-  for (int i = 0; i < n; i++) {
-    if (s[i] == ' ') continue;
-    if (s[i] == s[(i-1+n) % n] || s[i] == s[(i+1) % n])
-      s[i] = ' ', ans++;
-  }
+  ans = min(ans, 1 + solve(s.substr(1)));
+  ans = min(ans, 1 + solve(s.substr(0, n-1)));
 
   return ans;
 }
@@ -187,14 +190,14 @@ namespace moj_harness {
                       int received__            = GearsDiv2().getmin(Directions);
                       return verify_case(casenum__, expected__, received__, clock()-start__);
                       }
-              /*      case 6: {
-                      string Directions         = ;
-                      int expected__            = ;
+                    case 6: {
+                      string Directions         = "RRRRLLLRLLR";
+                      int expected__            = 4;
 
                       clock_t start__           = clock();
                       int received__            = GearsDiv2().getmin(Directions);
                       return verify_case(casenum__, expected__, received__, clock()-start__);
-                      }*/
+                      }
               /*      case 7: {
                       string Directions         = ;
                       int expected__            = ;
