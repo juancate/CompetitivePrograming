@@ -49,7 +49,6 @@ polygon monotone_chain(polygon P) {
   for (int i = 0; i < N; i++) {
     while (k-start >= 2 && !ccw(H[k-2], H[k-1], P[i]))
       k--;
-
     H[k++] = P[i];
   }
 
