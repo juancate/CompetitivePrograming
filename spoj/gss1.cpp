@@ -91,15 +91,11 @@ int main() {
   cin >> m;
 
   while (m--) {
-    int op, l, r;
-    cin >> op >> l >> r;
+    int l, r;
+    cin >> l >> r;
 
-    if (op == 0)
-      update(1, 1, n, l, r);
-    else {
-      node ans = query(1, 1, n, l, r);
-      cout << ans.best << '\n';
-    }
+    node ans = query(1, 1, n, l, r);
+    cout << ans.best << '\n';
   }
 
   return 0;
