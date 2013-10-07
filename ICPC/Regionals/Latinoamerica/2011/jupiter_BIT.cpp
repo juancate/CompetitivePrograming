@@ -2,7 +2,7 @@
 
 using namespace std;
 
-const int maxn = int(1e5)+10;
+const int maxn = 100010;
 
 class BIT {
   public:
@@ -12,15 +12,15 @@ class BIT {
       fill(t, t+n, 0);
     }
 
-    int rsq(int idx, int p) {
-      int sum = 0;
+    int rsq(int idx) {
+      long long sum = 0;
       for (; idx; idx -= (idx & -idx))
-        sum = (sum + t[idx]) % p;
-      return sum % p;
+        sum += t[idx];
+      return sum;
     }
 
-    int rsq(int a, int b, int p) {
-      return rsq(b, p) - (a == 1 ? 0 : rsq(a-1, p));
+    int rsq(int a, int b) {
+      return rsq(b) - (a == 1 ? 0 : rsq(a-1));
     }
 
     void adjust(int k, int v, int P) {
@@ -30,16 +30,12 @@ class BIT {
 };
 
 int n;
-long long B[maxn], invB[maxn];
+long long B[maxn];
 
 void precalculate(int b, int P) {
-  B[n-1] = invB[n-1] = 1;
-  for (int i = 1; i < n; i++) {
+  B[n-1] = 1;
+  for (int i = 1; i < n; i++)
     B[n-i-1] = (B[n-i] * b) % P;
-    invB[n-i-1] = (invB[n-i] * b) % (P-2);
-    cerr << "B[" << n-i-1 << "] = " << B[n-i-1] << " ";
-    cerr << "invB[" << n-i-1 << "] = " << invB[n-i-1] << "\n";
-  }
 }
 
 int main() {
@@ -53,7 +49,7 @@ int main() {
       break;
 
     BIT t(n);
-    precalculate(b,p);
+    precalculate(b, p);
     cerr << "p = " << p << endl;
 
     while (q--) {
@@ -66,14 +62,11 @@ int main() {
       if (op == 'E') {
         int i, v;
         cin >> i >> v;
-        t.adjust(i, ((B[i-1] * v) % p)-t.rsq(i,i,p)+p, p);
       }
       else {
         int i, j;
         cin >> i >> j;
         long long ans = (t.rsq(i, j) % p);
-        cerr << " >> ans = " << ans << " invB = " << invB[j-1] << '\n';
-        ans = (ans * invB[j-1]) % p;
         cout << ans << '\n';
       }
     }
