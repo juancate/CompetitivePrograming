@@ -1,10 +1,8 @@
-#include <algorithm>
-#include <iostream>
+#include <bits/stdc++.h>
+
+#define LSOne(x) ((x) & -(x))
 
 using namespace std;
-
-// http://poj.org/problem?id=3468
-// WA
 
 const int maxn = 100010;
 
@@ -19,26 +17,24 @@ public:
   }
 
   void internalUpdate(int at, long long mul, long long add) {
-    while (at <= n) {
+    for (; at <= n; at += LSOne(at)) {
       dataMul[at] += mul;
       dataAdd[at] += add;
-      at |= (at +  1);
     }
   }
 
   void update(int left, int right, long long by) {
-    internalUpdate(left, by, -by * (left-1));
-    internalUpdate(right, -by, by * right);
+    internalUpdate(left, by, -by * (left - 1));
+    internalUpdate(right + 1, -by, by * right);
   }
 
   long long query(int at) {
     long long mul = 0, add = 0;
     int start = at;
 
-    while(at > 0) {
+    for (; at > 0; at -= LSOne(at)) {
       mul += dataMul[at];
       add += dataAdd[at];
-      at = (at & (at + 1)) - 1;
     }
 
     return mul * start + add;
@@ -53,29 +49,29 @@ int main() {
   ios_base::sync_with_stdio(false);
   cin.tie(NULL);
 
-  int n, q;
-  while (cin >> n >> q) {
+  int t;
+  cin >> t;
+
+  while (t--) {
+    int n, q;
+    cin >> n >> q;
+
     BIT tree(n);
 
-    for (int i = 1, v; i <= n; i++) {
-      cin >> v;
-      tree.update(i, i, v);
-    }
-
     while (q--) {
-      char op;
-      int l, r;
+      int op, l, r, v;
       cin >> op >> l >> r;
 
-      if (op == 'Q')
-        cout << tree.query(l, r) << endl;
-      else{
-        int v;
+      if (op == 0) {
         cin >> v;
         tree.update(l, r, v);
+      }
+      else {
+        cout << tree.query(l, r) << '\n';
       }
     }
   }
 
   return 0;
 }
+
