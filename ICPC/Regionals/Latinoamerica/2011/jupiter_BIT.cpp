@@ -5,37 +5,63 @@ using namespace std;
 const int maxn = 100010;
 
 class BIT {
-  public:
-    int t[maxn], n;
-    BIT(int m) {
-      n = ++m;
-      fill(t, t+n, 0);
-    }
+public:
+  long long t[maxn], n;
+  BIT(int m) {
+    n = ++m;
+    fill(t, t+n, 0);
+  }
 
-    int rsq(int idx) {
-      long long sum = 0;
-      for (; idx; idx -= (idx & -idx))
-        sum += t[idx];
-      return sum;
-    }
+  int rsq(int idx, int P) {
+    long long sum = 0;
+    for (; idx; idx -= (idx & -idx))
+      sum = (sum + t[idx] % P) % P;
+    return sum;
+  }
 
-    int rsq(int a, int b) {
-      return rsq(b) - (a == 1 ? 0 : rsq(a-1));
-    }
+  int rsq(int a, int b, int P) {
+    return (rsq(b, P) - rsq(a - 1, P) + P) % P;
+  }
 
-    void adjust(int k, int v, int P) {
-      for (; k <= n; k += (k & -k))
-        t[k] = (t[k] + v) % P;
-    }
+  void adjust(int k, long long v, int P) {
+    for (; k <= n; k += (k & -k))
+      t[k] = (t[k] + v) % P;
+  }
+  void update(int k, long long v, int P) {
+    int x = rsq(k, k, P);
+    adjust(k, v - x, P);
+  }
 };
 
 int n;
-long long B[maxn];
 
-void precalculate(int b, int P) {
-  B[n-1] = 1;
-  for (int i = 1; i < n; i++)
-    B[n-i-1] = (B[n-i] * b) % P;
+int mod_pow(int a, int b, int p) {
+  long long x = a, r = 1;
+  while (b > 0) {
+    if (b & 1) r = (r * x) % p;
+    x = (x * x) % p;
+    b >>= 1;
+  }
+  return r;
+}
+
+long long x ,y, d;
+
+void extended_euclid(long long a, long long b) {
+  if (b == 0) {
+    x = 1, y = 0, d = a;
+    return;
+  }
+  extended_euclid(b, a % b);
+  long long x1 = y;
+  long long y1 = x - (a / b) * y;
+  x = x1;
+  y = y1;
+}
+
+long long inverse(long long a, long long p) {
+  extended_euclid(a, p);
+  return x;
 }
 
 int main() {
@@ -48,26 +74,27 @@ int main() {
     if ((b|p|n|q) == 0)
       break;
 
-    BIT t(n);
-    precalculate(b, p);
-    cerr << "p = " << p << endl;
+    BIT tree(n);
 
     while (q--) {
       char op;
       cin >> op;
-      for (int i = 1; i < t.n; i++)
-        cerr << t.t[i] << ' ';
-      cerr << '\n';
 
       if (op == 'E') {
-        int i, v;
+        long long i, v;
         cin >> i >> v;
+        tree.update(i, v * mod_pow(b, n-i, p), p);
       }
       else {
         int i, j;
         cin >> i >> j;
-        long long ans = (t.rsq(i, j) % p);
-        cout << ans << '\n';
+        long long ans = tree.rsq(i, j, p);
+        long long base = mod_pow(b, n-j, p);
+
+        ans = (ans * inverse(base, p)) % p;
+        ans += p;
+
+        cout << (ans % p) << '\n';
       }
     }
     cout << "-\n";
