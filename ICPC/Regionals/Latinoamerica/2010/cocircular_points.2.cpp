@@ -41,16 +41,21 @@ void midPoint(const point & a, const point & b, point & c) {
 }
 
 bool intersect(const point & A, const point & B, const point & C, const point & D, point& center) {
-  double a1 = B.y - A.y;
-  double b1 = A.x - B.x;
-  double c1 = A.y * (-b1) - A.x * a1;
-  double a2 = D.y - C.y;
-  double b2 = C.x - D.x;
-  double c2 = C.y * (-b2) - C.x * a2;
+  double a, b, c, d, rx, ry, det, s, x, y;
+  a = (B.x - A.x); // R'
+  b = (C.x - D.x); // R
+  c = (B.y - A.y);
+  d = (C.y - D.y);
 
-  center.x = (c2 * b1 - c1 * b2) / (a1 * b2 - a2 * b1);
-  center.y = (c2 * a1 - c1 * a2) / (b1 * a2 - b2 * a1);
+  rx = C.x - A.x;
+  ry = C.y - A.y;
 
+  det = a*d - b*c;
+  s = (rx * d - b * ry) / det;
+  x = A.x + (B.x - A.x) * s;
+  y = A.y + (B.y - A.y) * s;
+
+  center = point(x, y);
   return true;
 }
 
