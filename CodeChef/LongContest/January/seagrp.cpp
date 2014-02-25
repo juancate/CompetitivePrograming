@@ -5,7 +5,7 @@ using namespace std;
 const int INF = int(1e9);
 
 // General Matching - Blossom algorithm.
-// O(N³) - Reference: http://e-maxx.ru/algo/matching_edmonds
+// O(VE) - Reference: http://e-maxx.ru/algo/matching_edmonds
 // Problem: http://www.codechef.com/problems/SEAGRP
 
 const int maxn = 110;
